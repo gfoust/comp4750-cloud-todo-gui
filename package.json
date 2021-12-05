@@ -1,0 +1,32 @@
+{
+  "name": "project",
+  "version": "1.0.0",
+  "description": "Blank front-end starter project",
+  "author": "Gabriel Foust",
+  "license": "ISC",
+  "scripts": {
+    "build:unix": "webpack --config webpack/config.prod && cp -R static/* dist",
+    "build:windows": "webpack --config webpack/config.prod && xcopy /S static/* dist",
+    "dev-server": "webpack-dev-server --hot --config webpack/config.dev",
+    "lint": "tslint -e node_modules -p tsconfig.json -t stylish",
+    "lint:fix": "tslint -e node_modules -p tsconfig.json --fix"
+  },
+  "dependencies": {
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "css-loader": "^6.5.1",
+    "file-loader": "^6.2.0",
+    "node-sass": "^6.0.1",
+    "postcss-loader": "^6.2.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "style-loader": "^3.3.1",
+    "ts-loader": "^9.2.6",
+    "tslint": "^6.1.3",
+    "typescript": "^4.5.2",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0",
+    "webpack-merge": "^5.8.0"
+  }
+}
