@@ -4,17 +4,15 @@ export interface LoginProps {
     onUseridUpdate?: (userid: string) => void;
 }
 
-export class Login extends React.Component<LoginProps> {
+interface LoginState {
+    prevUserid: string;
+    userid: string;
+}
+
+export class Login extends React.Component<LoginProps, LoginState> {
     state = {
         prevUserid: '',
         userid: ''
-    }
-
-    updateCb?: (userid: string) => void;
-
-    constructor(props: LoginProps) {
-        super(props);
-        this.updateCb = props.onUseridUpdate;
     }
 
     changeUserid = (event: React.ChangeEvent) => {
@@ -26,8 +24,19 @@ export class Login extends React.Component<LoginProps> {
         event.preventDefault();
         if (this.state.userid != this.state.prevUserid) {
             this.setState({ prevUserid: this.state.userid });
-            if (this.updateCb) {
-                this.updateCb(this.state.userid);
+            if (this.props.onUseridUpdate) {
+                this.props.onUseridUpdate(this.state.userid);
+            }
+        }
+    }
+
+    checkUserid = (event: React.FormEvent) => {
+        if (this.state.userid != this.state.prevUserid) {
+            if (confirm('Switch user id?')) {
+                this.updateUserid(event);
+            }
+            else {
+                this.setState({ userid: this.state.prevUserid });
             }
         }
     }
@@ -36,12 +45,13 @@ export class Login extends React.Component<LoginProps> {
         return (
             <>
                 <form onSubmit={this.updateUserid}>
-                    User Id: 
+                    User Id: &nbsp;
                     <input 
                         type="text"
+                        autoFocus
                         value={this.state.userid} 
                         onChange={this.changeUserid} 
-                        onBlur={this.updateUserid} 
+                        onBlur={this.checkUserid} 
                     />
                     <input type="submit" value="Go"/>
                 </form>

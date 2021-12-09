@@ -8,4 +8,3 @@ window.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(<ui.Page />, domNode);
 });
 
-(module as any).hot.accept();
